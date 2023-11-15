@@ -9,9 +9,28 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 // image.onload = () => (texture.needsUpdate = true)
 // image.src = '/textures/door/color.jpg'
 
-const textureLoader = new THREE.TextureLoader()
-const texture = textureLoader.load('/textures/door/color.jpg')
-texture.colorSpace = THREE.SRGBColorSpace
+const loadingManager = new THREE.LoadingManager()
+// loadingManager.onStart = () => {}
+// loadingManager.onLoad = () => {}
+// loadingManager.onProgress = () => {}
+// loadingManager.onError = () => {}
+
+const textureLoader = new THREE.TextureLoader(loadingManager)
+const colorTexture = textureLoader.load('/textures/door/color.jpg')
+const alphaTexture = textureLoader.load('/textures/door/alpha.jpg')
+const ambientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
+const heightTexture = textureLoader.load('/textures/door/height.jpg')
+const metalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
+const normalTexture = textureLoader.load('/textures/door/normal.jpg')
+const roughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
+
+colorTexture.colorSpace = THREE.SRGBColorSpace
+alphaTexture.colorSpace = THREE.SRGBColorSpace
+ambientOcclusionTexture.colorSpace = THREE.SRGBColorSpace
+heightTexture.colorSpace = THREE.SRGBColorSpace
+metalnessTexture.colorSpace = THREE.SRGBColorSpace
+normalTexture.colorSpace = THREE.SRGBColorSpace
+roughnessTexture.colorSpace = THREE.SRGBColorSpace
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -21,7 +40,7 @@ const scene = new THREE.Scene()
 
 // Object
 const geometry = new THREE.BoxGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ map: texture })
+const material = new THREE.MeshBasicMaterial({ map: normalTexture })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
 
